@@ -10,7 +10,7 @@
 		<OutputType>Library</OutputType>
 		<RootNamespace>Nez.ImGuiTools</RootNamespace>
 		<AssemblyName>Nez.ImGui</AssemblyName>
-        <TargetFramework>net471</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -27,7 +27,7 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="../../FNA/FNA.csproj" />
+		<ProjectReference Include="../../FNA/FNA.Core.csproj" />
 		<ProjectReference Include="../Nez.Portable/Nez.FNA.csproj" />
 		<ProjectReference Include="../Nez.Persistence/Nez.FNA.Persistence.csproj" />
 	</ItemGroup>

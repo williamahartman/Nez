@@ -10,7 +10,7 @@
 		<OutputType>Library</OutputType>
 		<RootNamespace>Nez.Farseer</RootNamespace>
 		<AssemblyName>Nez.FarseerPhysics</AssemblyName>
-		<TargetFramework>net471</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -26,7 +26,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\FNA\FNA.csproj">
+		<ProjectReference Include="..\..\FNA\FNA.Core.csproj">
 		</ProjectReference>
 		<ProjectReference Include="..\Nez.Portable\Nez.FNA.csproj">
 		</ProjectReference>
