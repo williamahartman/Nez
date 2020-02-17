@@ -9,10 +9,10 @@ namespace Nez.BitmapFonts
 {
 	public partial class BitmapFont : IDisposable, IFont
 	{
-        /// <summary>
-        /// When used with MeasureString, specifies that no wrapping should occur.
-        /// </summary>
-        const int kNoMaxWidth = -1;
+		/// <summary>
+		/// When used with MeasureString, specifies that no wrapping should occur.
+		/// </summary>
+		const int kNoMaxWidth = -1;
 
 		#region Properties
 
@@ -140,6 +140,11 @@ namespace Nez.BitmapFonts
 
 		public Character DefaultCharacter;
 
+		/// <summary>
+		/// Whether or not to import the textures with premultiplied alpha
+		/// </summary>
+		public bool UsePremultipliedAlpha;
+
 		internal int _spaceWidth;
 
 		#endregion
@@ -151,7 +156,7 @@ namespace Nez.BitmapFonts
 
 		public void Initialize()
 		{
-			LoadTextures();
+			LoadTextures(UsePremultipliedAlpha);
 			if (Characters.TryGetValue(' ', out var defaultChar))
 			{
 				DefaultCharacter = defaultChar;
