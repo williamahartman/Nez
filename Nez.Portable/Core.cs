@@ -483,9 +483,9 @@ namespace Nez
 		/// <param name="repeats">If set to <c>true</c> repeats.</param>
 		/// <param name="context">Context.</param>
 		/// <param name="onTime">On time.</param>
-		public static ITimer Schedule(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime)
+		public static ITimer Schedule(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
-			return _instance._timerManager.Schedule(timeInSeconds, repeats, context, onTime);
+			return _instance._timerManager.Schedule(timeInSeconds, repeats, context, onTime, useUnscaledTime);
 		}
 
 		/// <summary>
@@ -494,9 +494,9 @@ namespace Nez
 		/// <param name="timeInSeconds">Time in seconds.</param>
 		/// <param name="context">Context.</param>
 		/// <param name="onTime">On time.</param>
-		public static ITimer Schedule(float timeInSeconds, object context, Action<ITimer> onTime)
+		public static ITimer Schedule(float timeInSeconds, object context, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
-			return _instance._timerManager.Schedule(timeInSeconds, false, context, onTime);
+			return _instance._timerManager.Schedule(timeInSeconds, false, context, onTime, useUnscaledTime);
 		}
 
 		/// <summary>
@@ -505,9 +505,9 @@ namespace Nez
 		/// <param name="timeInSeconds">Time in seconds.</param>
 		/// <param name="repeats">If set to <c>true</c> repeats.</param>
 		/// <param name="onTime">On time.</param>
-		public static ITimer Schedule(float timeInSeconds, bool repeats, Action<ITimer> onTime)
+		public static ITimer Schedule(float timeInSeconds, bool repeats, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
-			return _instance._timerManager.Schedule(timeInSeconds, repeats, null, onTime);
+			return _instance._timerManager.Schedule(timeInSeconds, repeats, null, onTime, useUnscaledTime);
 		}
 
 		/// <summary>
@@ -515,9 +515,9 @@ namespace Nez
 		/// </summary>
 		/// <param name="timeInSeconds">Time in seconds.</param>
 		/// <param name="onTime">On time.</param>
-		public static ITimer Schedule(float timeInSeconds, Action<ITimer> onTime)
+		public static ITimer Schedule(float timeInSeconds, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
-			return _instance._timerManager.Schedule(timeInSeconds, false, null, onTime);
+			return _instance._timerManager.Schedule(timeInSeconds, false, null, onTime, useUnscaledTime);
 		}
 
 		#endregion

@@ -12,6 +12,7 @@ namespace Nez.Timers
 
 		float _timeInSeconds;
 		bool _repeats;
+		bool _useUnscaledTime;
 		Action<ITimer> _onTime;
 		bool _isDone;
 		float _elapsedTime;
@@ -44,15 +45,16 @@ namespace Nez.Timers
 					_isDone = true;
 			}
 
-			_elapsedTime += Time.DeltaTime;
+			_elapsedTime += _useUnscaledTime ? Time.UnscaledDeltaTime : Time.DeltaTime;
 
 			return _isDone;
 		}
 
-		internal void Initialize(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime)
+		internal void Initialize(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
 			_timeInSeconds = timeInSeconds;
 			_repeats = repeats;
+			_useUnscaledTime = useUnscaledTime;
 			Context = context;
 			_onTime = onTime;
 		}

@@ -32,10 +32,11 @@ namespace Nez.Timers
 		/// <param name="repeats">If set to <c>true</c> repeats.</param>
 		/// <param name="context">Context.</param>
 		/// <param name="onTime">On time.</param>
-		internal ITimer Schedule(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime)
+		/// <param name="useUnscaledTime">Whether to use Time.UnscaledDeltaTime or Time.DeltaTime.</param>
+		internal ITimer Schedule(float timeInSeconds, bool repeats, object context, Action<ITimer> onTime, bool useUnscaledTime = false)
 		{
 			var timer = new Timer();
-			timer.Initialize(timeInSeconds, repeats, context, onTime);
+			timer.Initialize(timeInSeconds, repeats, context, onTime, useUnscaledTime);
 			_timers.Add(timer);
 
 			return timer;
