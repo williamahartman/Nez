@@ -57,29 +57,31 @@ namespace Nez.UI
 		float _lastPrefHeight;
 		Vector2 _prefSize;
 		Vector2 _textPosition;
+		private float _angle;
 
 
-		public Label(string text, LabelStyle style)
+		public Label(string text, LabelStyle style, float angle = 0)
 		{
 			SetStyle(style);
 			SetText(text);
 			touchable = Touchable.Disabled;
+			_angle = Mathf.Deg2Rad * angle;
 		}
 
 
-		public Label(string text, Skin skin, string styleName = null) : this(text, skin.Get<LabelStyle>(styleName))
+		public Label(string text, Skin skin, string styleName = null, float angle = 0) : this(text, skin.Get<LabelStyle>(styleName), angle)
 		{ }
 
 
-		public Label(string text, BitmapFont font, Color fontColor) : this(text, new LabelStyle(font, fontColor))
+		public Label(string text, BitmapFont font, Color fontColor, float angle = 0) : this(text, new LabelStyle(font, fontColor), angle)
 		{ }
 
 
-		public Label(string text, BitmapFont font) : this(text, font, Color.White)
+		public Label(string text, BitmapFont font, float angle = 0) : this(text, font, Color.White, angle)
 		{ }
 
 
-		public Label(string text) : this(text, Graphics.Instance.BitmapFont)
+		public Label(string text, float angle = 0) : this(text, Graphics.Instance.BitmapFont, angle)
 		{ }
 
 
@@ -358,8 +360,11 @@ namespace Nez.UI
 			var color = ColorExt.Create(this.color, (int)(this.color.A * parentAlpha));
 			_style.Background?.Draw(batcher, x, y, width == 0 ? _prefSize.X : width, height, color);
 
-			batcher.DrawString(_style.Font, _wrappedString, new Vector2(x, y) + _textPosition,
-				_style.FontColor, 0, Vector2.Zero, new Vector2(_fontScaleX, _fontScaleY), SpriteEffects.None, 0);
+			var center = new Vector2(x + (width / 2f), y + (height / 2f));
+			var corner = new Vector2(x, y) + _textPosition;
+			var rotatedCorner = Vector2.Transform(corner - center, Matrix2D.CreateRotation(_angle)) + center;
+			batcher.DrawString(_style.Font, _wrappedString, rotatedCorner, _style.FontColor, _angle,
+								Vector2.Zero, new Vector2(_fontScaleX, _fontScaleY), SpriteEffects.None, 0);
 		}
 	}
 
