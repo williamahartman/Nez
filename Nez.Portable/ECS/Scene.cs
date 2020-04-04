@@ -366,6 +366,7 @@ namespace Nez
 			if (EntityProcessors != null)
 				EntityProcessors.Begin();
 			Core.Emitter.AddObserver(CoreEvents.GraphicsDeviceReset, OnGraphicsDeviceReset);
+			Core.Emitter.AddObserver(CoreEvents.OrientationChanged, OnOrientationChanged);
 
 			_didSceneBegin = true;
 			OnStart();
@@ -545,6 +546,7 @@ namespace Nez
 		}
 
 		void OnGraphicsDeviceReset() => UpdateResolutionScaler();
+		void OnOrientationChanged() => UpdateResolutionScaler();
 
 		#endregion
 
@@ -1070,7 +1072,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The of type.</returns>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public List<Entity> EntitiesOfType<T>() where T : Entity => Entities.EntitiesOfType<T>();
+		public List<T> EntitiesOfType<T>() where T : Entity => Entities.EntitiesOfType<T>();
 
 		/// <summary>
 		/// returns the first enabled loaded component of Type T
