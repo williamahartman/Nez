@@ -118,7 +118,7 @@ namespace Nez
 			return Vector2.Clamp(position, halfScreen, cameraMax);
 		}
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			if (_cameraStyle == CameraStyle.LockOn)
 				batcher.DrawHollowRect(_worldSpaceDeadzone.X - 5, _worldSpaceDeadzone.Y - 5,

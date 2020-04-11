@@ -165,7 +165,7 @@ namespace Nez
 			{
 				var entity = scene.Entities[i];
 				if (entity.Enabled)
-					entity.DebugRender(Graphics.Instance.Batcher);
+					entity.DebugRender(Graphics.Instance.Batcher, cam);
 			}
 		}
 

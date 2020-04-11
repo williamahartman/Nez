@@ -44,7 +44,7 @@
 				var renderable = scene.RenderableComponents[i];
 				if (!ExcludedRenderLayers.Contains(renderable.RenderLayer) && renderable.Enabled &&
 				    renderable.IsVisibleFromCamera(cam))
-					renderable.DebugRender(Graphics.Instance.Batcher);
+					renderable.DebugRender(Graphics.Instance.Batcher, cam);
 			}
 
 			base.DebugRender(scene, cam);

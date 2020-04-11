@@ -136,7 +136,7 @@ namespace Nez
 			}
 		}
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			foreach (var group in TiledMap.ObjectGroups)
 				TiledRendering.RenderObjectGroup(group, batcher, Entity.Transform.Position + _localOffset, Transform.Scale, LayerDepth);
@@ -144,7 +144,7 @@ namespace Nez
 			if (_colliders != null)
 			{
 				foreach (var collider in _colliders)
-					collider.DebugRender(batcher);
+					collider.DebugRender(batcher, camera);
 			}
 		}
 

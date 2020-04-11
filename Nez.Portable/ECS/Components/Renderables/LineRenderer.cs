@@ -845,7 +845,7 @@ namespace Nez
 		}
 
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			for (var i = 0; i < _vertices.Length; i++)
 			{

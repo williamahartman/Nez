@@ -151,7 +151,7 @@ namespace Nez
 				Entity.Transform.Scale, SpriteEffects, LayerDepth);
 		}
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			// due to the override of position in render we have to do the same here
 			var rect = Bounds;

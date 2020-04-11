@@ -127,7 +127,7 @@ namespace Nez.DeferredLighting
 				{
 					var renderable = renderables.Buffer[j];
 					if (renderable.Enabled && renderable.IsVisibleFromCamera(cam))
-						renderable.DebugRender(Graphics.Instance.Batcher);
+						renderable.DebugRender(Graphics.Instance.Batcher, cam);
 				}
 			}
 
@@ -136,7 +136,7 @@ namespace Nez.DeferredLighting
 			{
 				var renderable = lightRenderables.Buffer[j];
 				if (renderable.Enabled && renderable.IsVisibleFromCamera(cam))
-					renderable.DebugRender(Graphics.Instance.Batcher);
+					renderable.DebugRender(Graphics.Instance.Batcher, cam);
 			}
 		}
 

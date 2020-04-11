@@ -84,7 +84,7 @@ namespace Nez
 		public virtual void OnEntityTransformChanged(Transform.Component comp)
 		{ }
 
-		public virtual void DebugRender(Batcher batcher)
+		public virtual void DebugRender(Batcher batcher, Camera camera)
 		{ }
 
 		/// <summary>

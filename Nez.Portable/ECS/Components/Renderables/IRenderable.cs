@@ -65,7 +65,7 @@ namespace Nez
 		/// <summary>
 		/// renders the bounds only if there is no collider. Always renders a square on the origin.
 		/// </summary>
-		void DebugRender(Batcher batcher);
+		void DebugRender(Batcher batcher, Camera camera);
 	}
 
 

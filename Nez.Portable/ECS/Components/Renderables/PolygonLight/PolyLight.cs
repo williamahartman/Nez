@@ -128,7 +128,7 @@ namespace Nez.Shadows
 
 		public override void Render(Batcher batcher, Camera camera) => RenderImpl(batcher, camera, false);
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			// here, we just assume the Camera being used by the Renderer is the standard Scene Camera
 			RenderImpl(batcher, Entity.Scene.Camera, true);

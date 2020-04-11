@@ -136,17 +136,17 @@ namespace Nez
 		/// renders the bounds only if there is no collider. Always renders a square on the origin.
 		/// </summary>
 		/// <param name="batcher">Batcher.</param>
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			if (!DebugRenderEnabled)
 				return;
 
 			// if we have no collider draw our bounds
 			if (Entity.GetComponent<Collider>() == null)
-				batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds);
+				batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds, camera.Bounds.Width / 2000f);
 
 			// draw a square for our pivot/origin
-			batcher.DrawPixel(Entity.Transform.Position + _localOffset, Debug.Colors.RenderableCenter, 4);
+			batcher.DrawPixel(Entity.Transform.Position + _localOffset, Debug.Colors.RenderableCenter, camera.Bounds.Width / 400f);
 		}
 
 		/// <summary>

@@ -205,17 +205,16 @@ namespace Nez
 		public static void DrawHollowRect(this Batcher batcher, float x, float y, float width, float height,
 		                                  Color color, float thickness = 1)
 		{
-			var tl = new Vector2(x, y).Round();
-			var tr = new Vector2(x + width, y).Round();
-			var br = new Vector2(x + width, y + height).Round();
-			var bl = new Vector2(x, y + height).Round();
+			var tl = new Vector2(x, y);
+			var tr = new Vector2(x + width, y);
+			var br = new Vector2(x + width, y + height);
+			var bl = new Vector2(x, y + height);
 
 			batcher.SetIgnoreRoundingDestinations(true);
 			batcher.DrawLine(tl, tr, color, thickness);
 			batcher.DrawLine(tr, br, color, thickness);
 			batcher.DrawLine(br, bl, color, thickness);
 			batcher.DrawLine(bl, tl, color, thickness);
-			batcher.SetIgnoreRoundingDestinations(false);
 		}
 
 
@@ -242,22 +241,24 @@ namespace Nez
 
 		#region Pixel
 
-		public static void DrawPixel(this Batcher batcher, float x, float y, Color color, int size = 1)
+		public static void DrawPixel(this Batcher batcher, float x, float y, Color color, float size = 1)
 		{
 			DrawPixel(batcher, new Vector2(x, y), color, size);
 		}
 
 
-		public static void DrawPixel(this Batcher batcher, Vector2 position, Color color, int size = 1)
+		public static void DrawPixel(this Batcher batcher, Vector2 position, Color color, float size = 1)
 		{
-			var destRect = new Rectangle((int)position.X, (int)position.Y, size, size);
-            if (size != 1)
+			var destRect = new RectangleF(position.X, position.Y, size, size);
+			if (size != 1)
 			{
-                destRect.X -= (int)(size * 0.5f);
-                destRect.Y -= (int)(size * 0.5f);
+				destRect.X -= (size * 0.5f);
+				destRect.Y -= (size * 0.5f);
 			}
 
-            batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
+			batcher.SetIgnoreRoundingDestinations(true);
+			batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
+			batcher.SetIgnoreRoundingDestinations(false);
 		}
 
 		#endregion

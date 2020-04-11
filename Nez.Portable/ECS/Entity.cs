@@ -397,7 +397,7 @@ namespace Nez
 		/// called if Core.debugRenderEnabled is true by the default renderers. Custom renderers can choose to call it or not.
 		/// </summary>
 		/// <param name="batcher">Batcher.</param>
-		public virtual void DebugRender(Batcher batcher) => Components.DebugRender(batcher);
+		public virtual void DebugRender(Batcher batcher, Camera cam) => Components.DebugRender(batcher, cam);
 
 		#endregion
 

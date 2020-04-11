@@ -71,7 +71,7 @@ namespace Nez.DeferredLighting
 		/// we dont want to render our bounds so we just render a direction
 		/// </summary>
 		/// <param name="batcher">Batcher.</param>
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			// figure out a starting corner for the line
 			var root = Vector2.Zero;

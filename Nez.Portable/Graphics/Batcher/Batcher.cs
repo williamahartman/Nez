@@ -296,6 +296,14 @@ namespace Nez
 				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
 		}
 
+        public void Draw(Texture2D texture, RectangleF destinationRectangle, Rectangle? sourceRectangle, Color color)
+		{
+			CheckBegin();
+			PushSprite(texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y,
+				destinationRectangle.Width, destinationRectangle.Height,
+				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
+		}
+
 		public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color,
 		                 SpriteEffects effects)
 		{

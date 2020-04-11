@@ -16,7 +16,7 @@ namespace Nez
 		public Stage Stage;
 
 		/// <summary>
-		/// if true, the rawMousePosition will be used else the scaledMousePosition will be used. If your UI is in screen space (using a 
+		/// if true, the rawMousePosition will be used else the scaledMousePosition will be used. If your UI is in screen space (using a
 		/// ScreenSpaceRenderer for example) then set this to true so input is not scaled.
 		/// </summary>
 		public bool IsFullScreen
@@ -63,7 +63,7 @@ namespace Nez
 		}
 
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			Stage.GetRoot().DebugRender(batcher);
 		}

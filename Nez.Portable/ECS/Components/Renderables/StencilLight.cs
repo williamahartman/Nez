@@ -124,7 +124,7 @@ namespace Nez
 			}
 		}
 
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			var scale = MathHelper.Max(Entity.Transform.Scale.X, Entity.Transform.Scale.Y);
 			batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds);

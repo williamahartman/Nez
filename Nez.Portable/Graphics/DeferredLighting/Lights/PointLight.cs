@@ -93,7 +93,7 @@ namespace Nez.DeferredLighting
 		/// renders the bounds only if there is no collider. Always renders a square on the origin.
 		/// </summary>
 		/// <param name="batcher">Batcher.</param>
-		public override void DebugRender(Batcher batcher)
+		public override void DebugRender(Batcher batcher, Camera camera)
 		{
 			batcher.DrawCircle(Entity.Transform.Position + _localOffset, Radius * Entity.Transform.Scale.X, Color.DarkOrchid, 2);
 		}
