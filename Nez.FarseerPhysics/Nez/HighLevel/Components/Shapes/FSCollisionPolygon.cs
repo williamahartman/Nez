@@ -78,7 +78,10 @@ namespace Nez.Farseer
 		public override void OnEntityTransformChanged(Transform.Component comp)
 		{
 			if (comp == Transform.Component.Scale)
+			{
+				_areVertsDirty = true;
 				RecreateFixture();
+			}
 		}
 
 
@@ -92,7 +95,6 @@ namespace Nez.Farseer
 		protected void RecreateFixture()
 		{
 			DestroyFixture();
-			UpdateVerts();
 			CreateFixture();
 		}
 
