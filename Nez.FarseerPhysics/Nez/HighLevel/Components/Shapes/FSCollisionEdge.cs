@@ -29,6 +29,13 @@ namespace Nez.Farseer
 		#endregion
 
 
+		public override void OnEntityTransformChanged(Transform.Component comp) {
+			if (comp == Transform.Component.Scale) {
+				RecreateFixture();
+			}
+		}
+
+
 		void RecreateFixture()
 		{
 			DestroyFixture();
