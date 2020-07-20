@@ -32,17 +32,17 @@ namespace Nez
 			}
 		}
 
-		bool _vertexColorEnabled = true;
-		Texture2D _texture;
-		BasicEffect _basicEffect;
+		protected bool _vertexColorEnabled = true;
+		protected Texture2D _texture;
+		protected BasicEffect _basicEffect;
 
-		int _primitiveCount;
-		Vector2 _topLeftVertPosition;
-		float _width;
-		float _height;
-		int[] _triangles;
-		VertexPositionColorTexture[] _verts;
-		PrimitiveType _primitiveType = PrimitiveType.TriangleList;
+		protected int _primitiveCount;
+		protected Vector2 _topLeftVertPosition;
+		protected float _width;
+		protected float _height;
+		protected int[] _triangles;
+		protected VertexPositionColorTexture[] _verts;
+		protected PrimitiveType _primitiveType = PrimitiveType.TriangleList;
 
 
 		#region configuration
