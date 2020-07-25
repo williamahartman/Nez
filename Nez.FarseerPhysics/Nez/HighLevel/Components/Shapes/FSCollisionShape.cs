@@ -180,6 +180,8 @@ namespace Nez.Farseer
 			_fixture.CollisionCategories = _fixtureDef.CollisionCategories;
 			_fixture.IgnoreCCDWith = _fixtureDef.IgnoreCCDWith;
 			_fixture.CollisionGroup = _fixtureDef.CollisionGroup;
+
+			rigidBody.Initialize(); // We want to be able to plug in fixture-related init code in subclasses (namely OnCollision)
 		}
 
 
