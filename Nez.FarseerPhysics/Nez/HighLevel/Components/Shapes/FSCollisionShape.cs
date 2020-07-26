@@ -90,6 +90,10 @@ namespace Nez.Farseer
 			return this;
 		}
 
+		public Category GetCollisionCategory()
+		{
+			return _fixtureDef.CollisionCategories;
+		}
 
 		public FSCollisionShape SetIgnoreCCDWith(Category ignoreCCDWith)
 		{
