@@ -79,21 +79,29 @@ namespace Nez.Systems
 			if (string.IsNullOrEmpty(Path.GetExtension(name)))
 				return Load<Texture2D>(name);
 
+			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name))
+			{
+				return LoadTexture(stream, name, premultiplyAlpha);
+			}
+		}
+
+		/// <summary>
+		/// loads a Texture2D from a passed stream, unless the file has already been loaded.
+		/// </summary>
+		public Texture2D LoadTexture(Stream stream, string name, bool premultiplyAlpha = false)
+		{
 			if (LoadedAssets.TryGetValue(name, out var asset))
 			{
 				if (asset is Texture2D tex)
 					return tex;
 			}
 
-			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name))
-			{
-				var texture = premultiplyAlpha ? TextureUtils.TextureFromStreamPreMultiplied(stream) : Texture2D.FromStream(Core.GraphicsDevice, stream);
-				texture.Name = name;
-				LoadedAssets[name] = texture;
-				DisposableAssets.Add(texture);
+			var texture = premultiplyAlpha ? TextureUtils.TextureFromStreamPreMultiplied(stream) : Texture2D.FromStream(Core.GraphicsDevice, stream);
+			texture.Name = name;
+			LoadedAssets[name] = texture;
+			DisposableAssets.Add(texture);
 
-				return texture;
-			}
+			return texture;
 		}
 
 		/// <summary>
