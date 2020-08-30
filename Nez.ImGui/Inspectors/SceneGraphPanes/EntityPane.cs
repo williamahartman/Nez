@@ -59,7 +59,7 @@ namespace Nez.ImGuiTools.SceneGraphPanes
 			NezImGui.ShowContextMenuTooltip();
 
 			// context menu for entity commands
-			ImGui.OpenPopupOnItemClick("entityContextMenu", 1);
+			ImGui.OpenPopupContextItem("entityContextMenu", ImGuiPopupFlags.MouseButtonRight);
 			DrawEntityContextMenuPopup(entity);
 
 			// we are looking for a double-click that is not on the arrow

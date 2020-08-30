@@ -134,68 +134,12 @@ namespace Nez.ImGuiTools
 					ImGui.EndMenu();
 				}
 
-				if (_themes.Length > 0 && ImGui.BeginMenu("Themes"))
-				{
-					foreach (var theme in _themes)
-					{
-						if (ImGui.MenuItem(theme.Name))
-							theme.Invoke(null, new object[] { });
-					}
-
-					ImGui.EndMenu();
-				}
-
-				if (ImGui.BeginMenu("Game View"))
-				{
-					var rtSize = Core.Scene.SceneRenderTargetSize;
-
-					if (ImGui.BeginMenu("Resize"))
-					{
-						if (ImGui.MenuItem("0.25x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 4f, rtSize.Y / 4f);
-						if (ImGui.MenuItem("0.5x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 2f, rtSize.Y / 2f);
-						if (ImGui.MenuItem("0.75x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 1.33f, rtSize.Y / 1.33f);
-						if (ImGui.MenuItem("1x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X, rtSize.Y);
-						if (ImGui.MenuItem("1.5x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 1.5f, rtSize.Y * 1.5f);
-						if (ImGui.MenuItem("2x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 2, rtSize.Y * 2);
-						if (ImGui.MenuItem("3x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 3, rtSize.Y * 3);
-						ImGui.EndMenu();
-					}
-
-					if (ImGui.BeginMenu("Reposition"))
-					{
-						foreach (var pos in Enum.GetNames(typeof(WindowPosition)))
-						{
-							if (ImGui.MenuItem(pos))
-								_gameViewForcedPos = (WindowPosition) Enum.Parse(typeof(WindowPosition), pos);
-						}
-
-						ImGui.EndMenu();
-					}
-
-
-					ImGui.EndMenu();
-				}
-
 				if (ImGui.BeginMenu("Window"))
 				{
 					ImGui.MenuItem("ImGui Demo Window", null, ref ShowDemoWindow);
-					ImGui.MenuItem("Style Editor", null, ref ShowStyleEditor);
-					if (ImGui.MenuItem("Open imgui_demo.cpp on GitHub"))
-					{
-						System.Diagnostics.Process.Start("https://github.com/ocornut/imgui/blob/master/imgui_demo.cpp");
-					}
-
 					ImGui.Separator();
 					ImGui.MenuItem("Core Window", null, ref ShowCoreWindow);
 					ImGui.MenuItem("Scene Graph Window", null, ref ShowSceneGraphWindow);
-					ImGui.MenuItem("Separate Game Window", null, ref ShowSeperateGameWindow);
 					ImGui.EndMenu();
 				}
 
