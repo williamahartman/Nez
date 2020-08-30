@@ -181,10 +181,10 @@ namespace Nez.ImGuiTools
 		{
 			// use the chosen folder name as the atlas name
 			var name = Path.GetFileName(path);
-			var args = $"{PathToSpritePacker} -image:{AtlasExportFolder}/{name}.png -map:{AtlasExportFolder}/{name}.atlas -fps:7 {path}";
+			var args = $"-image:{AtlasExportFolder}/{name}.png -map:{AtlasExportFolder}/{name}.atlas -fps:7 {path}";
 			Process.Start(new ProcessStartInfo
 			{
-				FileName = "mono",
+				FileName = PathToSpritePacker,
 				Arguments = args,
 				WindowStyle = ProcessWindowStyle.Hidden
 			}).WaitForExit();
@@ -518,7 +518,6 @@ namespace Nez.ImGuiTools
 						var iterationDuration = secondsPerFrame * (float)frames.Count;
 						var currentElapsed = Time.TotalTime % iterationDuration;
 						var desiredFrame = Mathf.FloorToInt(currentElapsed / secondsPerFrame);
-						
 						var rect = _spriteAtlasData.SourceRects[frames[desiredFrame]];
 						var uv0 = rect.Location.ToNumerics() / _textureSize;
 						var uv1 = rect.GetSize().ToNumerics() / _textureSize;
