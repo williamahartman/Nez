@@ -23,8 +23,9 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position + _topLeftVertPosition, Vector2.Zero,
-						Vector2.Zero, Entity.Transform.Scale, Entity.Transform.Rotation, _width, _height);
+					RecalculateBounds(false);
+					_bounds.CalculateBounds(_topLeftVertPosition, Vector2.Zero,
+						Vector2.Zero, Vector2.One, 0, _width, _height);
 					_areBoundsDirty = false;
 				}
 
@@ -58,10 +59,21 @@ namespace Nez
 
 			for (var i = 0; i < _verts.Length; i++)
 			{
-				_topLeftVertPosition.X = MathHelper.Min(_topLeftVertPosition.X, _verts[i].Position.X);
-				_topLeftVertPosition.Y = MathHelper.Min(_topLeftVertPosition.Y, _verts[i].Position.Y);
-				max.X = MathHelper.Max(max.X, _verts[i].Position.X);
-				max.Y = MathHelper.Max(max.Y, _verts[i].Position.Y);
+				var pos = _verts[i].Position.ToVector2();
+				Matrix2D transform;
+				Matrix2D translation = Matrix2D.CreateTranslation(Entity != null ? Entity.Transform.Position : Vector2.Zero);
+				Matrix2D rotation    = Matrix2D.CreateRotation(Entity != null ? Entity.Transform.Rotation : 0);
+				Matrix2D scale       = Matrix2D.CreateScale(Entity != null ? Entity.Transform.Scale : Vector2.One);
+
+				Matrix2D.Multiply(ref scale, ref rotation, out transform);
+				Matrix2D.Multiply(ref transform, ref translation, out transform);
+
+				var transformedPos = Vector2.Transform(pos, transform);
+
+				_topLeftVertPosition.X = MathHelper.Min(_topLeftVertPosition.X, transformedPos.X);
+				_topLeftVertPosition.Y = MathHelper.Min(_topLeftVertPosition.Y, transformedPos.Y);
+				max.X = MathHelper.Max(max.X, transformedPos.X);
+				max.Y = MathHelper.Max(max.Y, transformedPos.Y);
 			}
 
 			_width = max.X - _topLeftVertPosition.X;
