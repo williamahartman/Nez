@@ -79,6 +79,12 @@ namespace Nez.Systems
 			if (string.IsNullOrEmpty(Path.GetExtension(name)))
 				return Load<Texture2D>(name);
 
+			if (LoadedAssets.TryGetValue(name, out var asset))
+			{
+				if (asset is Texture2D tex)
+					return tex;
+			}
+
 			using (var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name))
 			{
 				return LoadTexture(stream, name, premultiplyAlpha);
