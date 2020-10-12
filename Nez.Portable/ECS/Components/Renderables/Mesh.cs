@@ -113,7 +113,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The texture.</returns>
 		/// <param name="texture">Texture.</param>
-		public Mesh SetTexture(Texture2D texture)
+		public virtual Mesh SetTexture(Texture2D texture)
 		{
 			if (_basicEffect != null)
 			{
