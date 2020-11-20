@@ -574,7 +574,7 @@ namespace Nez
 
 			if (_disableBatching)
 			{
-				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.Discard);
 				DrawPrimitives(texture, 0, 1);
 			}
 			else
@@ -622,7 +622,7 @@ namespace Nez
 			if (_disableBatching)
 			{
 				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride,
-					SetDataOptions.None);
+					SetDataOptions.Discard);
 				DrawPrimitives(texture, 0, 1);
 			}
 			else
@@ -830,7 +830,7 @@ namespace Nez
 
 			if (_disableBatching)
 			{
-				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.Discard);
 				DrawPrimitives(texture, 0, 1);
 			}
 			else
@@ -978,7 +978,7 @@ namespace Nez
 
 			if (_disableBatching)
 			{
-				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride, SetDataOptions.Discard);
 				DrawPrimitives(sprite, 0, 1);
 			}
 			else
@@ -1001,10 +1001,10 @@ namespace Nez
 			#if FNA
 			fixed (VertexPositionColorTexture4* p = &_vertexInfo[0])
 			{
-				_vertexBuffer.SetDataPointerEXT(0, (IntPtr)p, _numSprites * VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+				_vertexBuffer.SetDataPointerEXT(0, (IntPtr)p, _numSprites * VertexPositionColorTexture4.RealStride, SetDataOptions.Discard);
 			}
 			#else
-			_vertexBuffer.SetData(0, _vertexInfo, 0, _numSprites, VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+			_vertexBuffer.SetData(0, _vertexInfo, 0, _numSprites, VertexPositionColorTexture4.RealStride, SetDataOptions.Discard);
 			#endif
 
 			curTexture = _textureInfo[0];
