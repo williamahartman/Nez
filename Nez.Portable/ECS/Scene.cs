@@ -1102,6 +1102,7 @@ namespace Nez
 		{
 			processor.Scene = this;
 			EntityProcessors.Add(processor);
+			processor.OnAddedToScene(this);
 			return processor;
 		}
 
@@ -1109,7 +1110,11 @@ namespace Nez
 		/// removes an EntitySystem processor from the scene
 		/// </summary>
 		/// <param name="processor">Processor.</param>
-		public void RemoveEntityProcessor(EntitySystem processor) => EntityProcessors.Remove(processor);
+		public void RemoveEntityProcessor(EntitySystem processor)
+		{
+			processor.OnRemovedFromScene(this);
+			EntityProcessors.Remove(processor);
+		}
 
 		/// <summary>
 		/// gets an EntitySystem processor

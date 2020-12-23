@@ -46,6 +46,16 @@ namespace Nez
 		}
 
 
+		public virtual void OnAddedToScene(Scene scene)
+		{
+		}
+
+
+		public virtual void OnRemovedFromScene(Scene scene)
+		{
+		}
+
+
 		public virtual void Add(Entity entity)
 		{
 			_entities.Add(entity);
