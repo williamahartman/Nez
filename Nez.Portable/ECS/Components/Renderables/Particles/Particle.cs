@@ -35,6 +35,9 @@ namespace Nez.Particles
 		float _degreesPerSecond;
 		internal float particleSize;
 		float _particleSizeDelta;
+		public float _sinWaveStrength;
+		public float _sinOffset;
+		public float _sinFrequency;
 
 		float _timeToLive;
 
@@ -95,6 +98,13 @@ namespace Nez.Particles
 			                      emitterConfig.RadialAccelVariance * Random.MinusOneToOne();
 			_tangentialAcceleration = emitterConfig.TangentialAcceleration +
 			                          emitterConfig.TangentialAccelVariance * Random.MinusOneToOne();
+
+			_sinWaveStrength = emitterConfig.SinWaveStrength +
+			                   emitterConfig.SinWaveStrengthVariance * Random.MinusOneToOne();
+			_sinOffset = emitterConfig.SinWaveOffset +
+			             emitterConfig.SinWaveOffsetVariance * Random.MinusOneToOne();
+			_sinFrequency = emitterConfig.SinWaveFrequency +
+			                emitterConfig.SinWaveFrequencyVariance * Random.MinusOneToOne();
 
 			// calculate the particle size using the start and finish particle sizes
 			var particleStartSize = emitterConfig.StartParticleSize +
@@ -186,6 +196,9 @@ namespace Nez.Particles
 						tmp = tmp * Time.DeltaTime;
 						_direction = _direction + tmp;
 						tmp = _direction * Time.DeltaTime;
+
+						tmp.X -= Mathf.Sin(_angle) * (Mathf.Sin((MathHelper.TwoPi * _sinFrequency * Time.TotalTime) + _sinOffset) * _sinWaveStrength * Time.DeltaTime);
+						tmp.Y += Mathf.Cos(_angle) * (Mathf.Sin((MathHelper.TwoPi * _sinFrequency * Time.TotalTime) + _sinOffset) * _sinWaveStrength * Time.DeltaTime);
 
 						_velocity = tmp / Time.DeltaTime;
 						position = position + tmp;

@@ -37,6 +37,9 @@ namespace Nez.Particles
 		public float StartParticleSize, StartParticleSizeVariance;
 		public float FinishParticleSize, FinishParticleSizeVariance;
 		public float Duration;
+		public float SinWaveStrength, SinWaveStrengthVariance;
+		public float SinWaveFrequency, SinWaveFrequencyVariance;
+		public float SinWaveOffset, SinWaveOffsetVariance;
 		public ParticleEmitterType EmitterType;
 
 		public float RotationStart, RotationStartVariance;
