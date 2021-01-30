@@ -12,7 +12,7 @@ namespace Nez
 		public static Emitter<InputEventType, InputEvent> Emitter;
 
 		public static GamePadData[] GamePads;
-		public const float DEFAULT_DEADZONE = 0.1f;
+		public const float DEFAULT_DEADZONE = 0.5f;
 
 		internal static Vector2 _resolutionScale;
 		internal static Point _resolutionOffset;
