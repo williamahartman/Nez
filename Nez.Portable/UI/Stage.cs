@@ -31,6 +31,14 @@ namespace Nez.UI
 		/// </summary>
 		public Keys KeyboardActionKey = Keys.Enter;
 
+		/// <summary>
+		/// The element that's currently in focus
+		/// </summary>
+        public IGamepadFocusable GamepadFocusElement {
+            get => _gamepadFocusElement;
+            set => _gamepadFocusElement = value;
+        }
+
 		Group root;
 		public Camera Camera;
 		bool debugAll, debugUnderMouse, debugParentUnderMouse;
@@ -48,6 +56,9 @@ namespace Nez.UI
 		float _keyRepeatTime = 0.2f;
 		Keys _repeatKey;
 
+		ITimer _gamepadRepeatTimer;
+		float _gamepadRepeatTime = 0.275f;
+		Direction _repeatGamepadDirection;
 		bool _isGamepadFocusEnabled;
 		IGamepadFocusable _gamepadFocusElement;
 
@@ -421,35 +432,58 @@ namespace Nez.UI
 					_gamepadFocusElement.OnActionButtonReleased();
 			}
 
-			IGamepadFocusable nextElement = null;
 			var direction = Direction.None;
-			if (Input.GamePads[0].DpadLeftPressed || Input.GamePads[0].IsLeftStickLeftPressed() ||
-			    (KeyboardEmulatesGamepad && Input.IsKeyPressed(Keys.Left)))
+			if (Input.GamePads[0].DpadLeftDown || Input.GamePads[0].IsLeftStickLeft() ||
+				Input.GamePads[1].DpadLeftDown || Input.GamePads[1].IsLeftStickLeft() ||
+				(KeyboardEmulatesGamepad && Input.IsKeyDown(Keys.Left)))
 				direction = Direction.Left;
-			else if (Input.GamePads[0].DpadRightPressed || Input.GamePads[0].IsLeftStickRightPressed() ||
-			         (KeyboardEmulatesGamepad && Input.IsKeyPressed(Keys.Right)))
+			else if (Input.GamePads[0].DpadRightDown || Input.GamePads[0].IsLeftStickRight() ||
+					 Input.GamePads[1].DpadRightDown || Input.GamePads[1].IsLeftStickRight() ||
+					 (KeyboardEmulatesGamepad && Input.IsKeyDown(Keys.Right)))
 				direction = Direction.Right;
-			else if (Input.GamePads[0].DpadUpPressed || Input.GamePads[0].IsLeftStickUpPressed() ||
-			         (KeyboardEmulatesGamepad && Input.IsKeyPressed(Keys.Up)))
+			else if (Input.GamePads[0].DpadUpDown || Input.GamePads[0].IsLeftStickUp() ||
+					 Input.GamePads[1].DpadUpDown || Input.GamePads[1].IsLeftStickUp() ||
+					 (KeyboardEmulatesGamepad && Input.IsKeyDown(Keys.Up)))
 				direction = Direction.Up;
-			else if (Input.GamePads[0].DpadDownPressed || Input.GamePads[0].IsLeftStickDownPressed() ||
-			         (KeyboardEmulatesGamepad && Input.IsKeyPressed(Keys.Down)))
+			else if (Input.GamePads[0].DpadDownDown || Input.GamePads[0].IsLeftStickDown() ||
+					 Input.GamePads[1].DpadDownDown || Input.GamePads[1].IsLeftStickDown() ||
+					 (KeyboardEmulatesGamepad && Input.IsKeyDown(Keys.Down)))
 				direction = Direction.Down;
 
 			// make sure we have a valid direction
-			if (direction != Direction.None)
+			if (direction != Direction.None && direction != _repeatGamepadDirection)
 			{
-				nextElement = FindNextGamepadFocusable(_gamepadFocusElement, direction);
-				if (nextElement == null)
+				ClearGamepadRepeatTimer();
+				MoveToNextGamepadElement(direction);
+
+				// Set up the repeat timer
+				_repeatGamepadDirection = direction;
+				_gamepadRepeatTimer = Core.Schedule(_gamepadRepeatTime, true, this, t =>
 				{
-					// we have no next Element so if the current Element has explicit focuasable control send along the unhandled direction
-					if (_gamepadFocusElement.ShouldUseExplicitFocusableControl)
-						_gamepadFocusElement.OnUnhandledDirectionPressed(direction);
-				}
-				else
-				{
-					SetGamepadFocusElement(nextElement);
-				}
+					var self = t.Context as Stage;
+					self.MoveToNextGamepadElement(_repeatGamepadDirection);
+				});
+			}
+
+			// Clear the old repeat timer if no direction is pressed
+			if (direction == Direction.None) {
+				ClearGamepadRepeatTimer();
+				_repeatGamepadDirection = Direction.None;
+			}
+		}
+
+
+		private void MoveToNextGamepadElement(Direction direction) {
+			var nextElement = FindNextGamepadFocusable(_gamepadFocusElement, direction);
+			if (nextElement == null)
+			{
+				// we have no next Element so if the current Element has explicit focuasable control send along the unhandled direction
+				if (_gamepadFocusElement.ShouldUseExplicitFocusableControl)
+					_gamepadFocusElement.OnUnhandledDirectionPressed(direction);
+			}
+			else
+			{
+				SetGamepadFocusElement(nextElement);
 			}
 		}
 
@@ -475,6 +509,18 @@ namespace Nez.UI
 			{
 				_keyRepeatTimer.Stop();
 				_keyRepeatTimer = null;
+			}
+		}
+
+		/// <summary>
+		/// stops and nulls the gamepadRepeatTimer if it is running
+		/// </summary>
+		void ClearGamepadRepeatTimer()
+		{
+			if (_gamepadRepeatTimer != null)
+			{
+				_gamepadRepeatTimer.Stop();
+				_gamepadRepeatTimer = null;
 			}
 		}
 
