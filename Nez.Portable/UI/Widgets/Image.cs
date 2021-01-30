@@ -10,6 +10,11 @@ namespace Nez.UI
 		int _align;
 
 		IDrawable _drawable;
+ 		public IDrawable Drawable {
+ 			get => _drawable;
+ 			private set => _drawable = value;
+ 		}
+
 		float imageX, imageY, imageWidth, imageHeight;
 
 
