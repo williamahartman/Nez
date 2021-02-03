@@ -211,9 +211,11 @@ namespace Nez
 			var bl = new Vector2(x, y + height);
 
 			batcher.SetIgnoreRoundingDestinations(true);
-			batcher.DrawLine(tl, tr, color, thickness);
+
+			var thicknessCorrection = new Vector2(thickness / 2f, 0);
+			batcher.DrawLine(tl - thicknessCorrection, tr + thicknessCorrection, color, thickness);
 			batcher.DrawLine(tr, br, color, thickness);
-			batcher.DrawLine(br, bl, color, thickness);
+			batcher.DrawLine(br + thicknessCorrection, bl - thicknessCorrection, color, thickness);
 			batcher.DrawLine(bl, tl, color, thickness);
 		}
 
