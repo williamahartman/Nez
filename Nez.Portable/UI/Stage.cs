@@ -451,7 +451,7 @@ namespace Nez.UI
 				direction = Direction.Down;
 
 			// make sure we have a valid direction
-			if (direction != Direction.None && direction != _repeatGamepadDirection)
+			if (direction != Direction.None && direction != _repeatGamepadDirection && _gamepadFocusElement != null)
 			{
 				ClearGamepadRepeatTimer();
 				MoveToNextGamepadElement(direction);
